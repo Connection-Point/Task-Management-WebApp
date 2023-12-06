@@ -4,13 +4,13 @@ import Center from './components/Center'
 
 const App = () => {
 
-  const [boardModalOpen, setboardModalOpen] = useState(false)
+  const [boardModalOpen, setBoardModalOpen] = useState(false)
 
   return (
     <div>
 
       {/* Header Section */}
-      <Header boardModalOpen = {boardModalOpen} setboardModalOpen = {setboardModalOpen}/>
+      <Header boardModalOpen = {boardModalOpen} setBoardModalOpen = {setBoardModalOpen}/>
 
       {/* Center Section */}
       <Center/>
