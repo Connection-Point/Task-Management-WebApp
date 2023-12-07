@@ -1,8 +1,8 @@
 {
     "boards": [
       {
-        "name": "Platform Launch",
-        "isActive" : false,
+        "name": "Production-Phase",
+        "isActive" : true,
         "columns": [
           {
             "name": "Todo",
