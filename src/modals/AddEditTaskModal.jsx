@@ -1,9 +1,31 @@
 import React, { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+import crossIcon from '../assets/icon-cross.svg'
 
 function AddEditTaskModal ({type, device, setOpenAddEditTask}) {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [subtasks, setSubtasks] = useState([
+        { title: "", isCompleted: false, id: uuidv4() },
+        { title: "", isCompleted: false, id: uuidv4() },
+      ]);
+    
 
+
+      const onChange = (id, newValue) => {
+        setSubtasks((prevState) => {
+          const newState = [...prevState];
+          const subtask = newState.find((subtask) => subtask.id === id);
+          subtask.title = newValue;
+          return newState;
+        });
+      };
+
+      const onDelete = (id) => {
+        setSubtasks((prevState) => prevState.filter((el) => el.id !== id));
+      };
+    
+        
 
   return (
     <div 
@@ -50,6 +72,39 @@ function AddEditTaskModal ({type, device, setOpenAddEditTask}) {
                 >
                 
                 </textarea>
+            </div>
+
+            {/* Subtask Section */}
+            <div className='mt-8 flex flex-col space-y-1'>
+                <label className='text-sm dark:text-white text-gray-500'>
+                    Subtasks
+                </label>
+
+                {
+                     subtasks.map((subtask, index) => (
+                        <div key={index} className=" flex items-center w-full ">
+                          <input
+                            onChange={(e) => {
+                                onChange(subtask.id, e.target.value);
+                            }}
+                            type="text"
+                            value={subtask.title}
+                            className=" bg-transparent outline-none focus:border-0 flex-grow px-4 py-2 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-[1px]  "
+                            placeholder=" e.g Take coffee break"
+                          />
+                          <img
+                            src={crossIcon}
+                            onClick={() => {
+                              onDelete(subtask.id);
+                            }}
+                            className=" m-4 cursor-pointer "
+                          />
+                        </div>
+                      ))
+            
+            
+                }
+                
             </div>
 
         </div>
